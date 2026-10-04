@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: ai-engine, namespace: self-healing}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: ai-engine}}
+  template:
+    metadata: {labels: {app: ai-engine}}
+    spec:
+      serviceAccountName: ai-engine
+      containers:
+      - name: ai-engine
+        image: self-healing/ai-engine:1.0
+        imagePullPolicy: IfNotPresent
+        ports: [{containerPort: 8001}]
